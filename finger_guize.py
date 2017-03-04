@@ -12,7 +12,7 @@ print '#######输入exit退出！##########'
 print ''
 
 while(True):
-	user=raw_input('请输入您的猜拳:')
+	user=raw_input('请输入您的猜拳(石头/剪刀/布):')
 	rand=random.choice(random_list)
 	if(user=='exit'):
 		sys.exit()
