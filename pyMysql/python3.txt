@@ -1,0 +1,24 @@
+vncviewer &
+
+172.40.50.125:6000
+一、下载资源
+1、地址
+ftp://172.40.50.125   py1702
+2、解压
+# unzip software.zip
+# cd software/
+# cd software
+3、安装python3信赖的软件包
+# rpm -ihv py_dep/*.rpm
+如果yum源可用，可以通过以下命令安装信赖包
+# yum install -y gcc gcc-c++ openssl-devel libffi-devel readline-devel
+4、安装python3
+# cd ..
+# tar xaf Python-3.6.1.tar.xz 
+# cd Python-3.6.1/
+# vim Modules/Setup.dist 
+输入:167，按del键把#号删除，然后输入:wq
+# ./configure --prefix=/usr/local
+# make && make install
+5、查看python3位置
+# which python

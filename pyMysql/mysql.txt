@@ -1,0 +1,90 @@
+员工姓名、性别、联系方式、部门、日期、基本工资、奖金、总工资
+张三 男 13322334455 zs@tedu.cn
+
+员工姓名、性别、电话、email、部门、日期、基本工资、奖金、总工资
+
+员工编号、员工姓名、性别、电话、email、部门、日期、基本工资、奖金、总工资
+
+员工表
+员工编号、员工姓名、性别、电话、email、部门编号
+部门表
+部门编号、部门名称
+工资表
+id、员工编号、日期、基本工资、奖金
+
+rhel7/centos7
+ftp://172.40.50.125    py1702/dvd.repo
+# cp dvd.repo /etc/yum.repos.d/
+# yum install -y mariadb-server
+rhel6
+# yum install -y mysql-server
+起动数据库
+rhel6
+# service mysqld start; chkconfig mysqld on
+# service mysqld status
+rhel7
+# systemctl start mariadb
+# systemctl enable mariadb
+# systemctl status mariadb
+设置mysql的root密码为tedu.cn
+# mysqladmin password tedu.cn
+连接数据库
+# mysql -uroot -ptedu.cn
+
+创建名为tedu的数据库，字符集是utf8
+MariaDB [test]> create database tedu default charset utf8;
+切换数据库
+MariaDB [test]> use tedu;
+查看当前数据库名称
+MariaDB [tedu]> select database();
+创建部门表，部门编号是主键，自动增长，部门名称不能为空，不能重复
+MariaDB [tedu]> CREATE TABLE departments (dep_id int(12) auto_increment, dep_name varchar(20) not null unique, primary key(dep_id));
+查看表结构
+MariaDB [tedu]> desc departments;
+查看数据库定义sql语句
+MariaDB [tedu]> show create database tedu;
+查看创建表的sql语句
+MariaDB [tedu]> show create table departments;
+
+配置phpMyAdmin
+将ftp上backup中的文件拷贝到/etc/yum.repos.d/中
+# yum install -y httpd php php-mysql php-mbstring
+# systemctl restart httpd
+# systemctl enable httpd
+# unzip phpMyAdmin-4.0.10.20-all-languages.zip 
+# mv phpMyAdmin-4.0.10.20-all-languages /var/www/html/phpMyAdmin
+# firefox http://127.0.0.1/phpMyAdmin &
+
+rhel6
+# service httpd start
+# chkconfig httpd on
+
+通过phpMyAdmin创建的employees和salary的sql语句
+MariaDB [(none)]> use tedu;
+MariaDB [tedu]> show create table employees;
+CREATE TABLE `employees` (
+  `emp_id` int(12) NOT NULL AUTO_INCREMENT,
+  `emp_name` varchar(20) NOT NULL,
+  `genda` varchar(10) NOT NULL,
+  `phone` char(11) NOT NULL,
+  `dep_id` int(12) NOT NULL,
+  PRIMARY KEY (`emp_id`),
+  KEY `dep_id` (`dep_id`),
+  CONSTRAINT `employees_ibfk_1` FOREIGN KEY (`dep_id`) REFERENCES `departments` (`dep_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+工资表
+MariaDB [tedu]> show create table salary;
+CREATE TABLE `salary` (
+  `id` int(12) NOT NULL AUTO_INCREMENT,
+  `date` date NOT NULL,
+  `emp_id` int(12) NOT NULL,
+  `basic` int(12) NOT NULL,
+  `extra` int(12) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `emp_id` (`emp_id`),
+  CONSTRAINT `salary_ibfk_1` FOREIGN KEY (`emp_id`) REFERENCES `employees` (`emp_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+多表查询
+查询每个人在哪个部门（员工名在employees表中，部门名在departments表中）
+MariaDB [tedu]> select e.emp_name, d.dep_name from employees as e join departments as d on e.dep_id=d.dep_id;
