@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+</head>
+<script>
+        function Uchange(){
+            var s=document.all.scripts;
+            var i=s.selectedIndex;
+            prompt="U selected:"+ s.options[i].text + ",value="+s.options[i].value;
+            alert(prompt);
+        }
+        function default_selected(){
+            document.all.scripts.options[1].selected=true;
+        }
+
+</script>
+<body>
+<input type="button" value="default" onclick="default_selected()">
+<select id="scripts" onchange="Uchange()">
+    <option id="1">python</option>
+    <option id="2">java</option>
+    <option id="3" selected>javascript</option>
+    <option id="4">css</option>
+    <option id="5">html</option>
+</select>
+
+</body>
+</html>

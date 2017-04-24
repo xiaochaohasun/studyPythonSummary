@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<style>
+    .show{
+    background-color:black;
+    width:400px;
+    height:50px;
+    color: red;
+    font-weight: 500;
+    font-size: 34px;
+    }
+    input {
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    color: blue;
+    }
+
+</style>
+<script>
+
+    function myclick(c){
+        var a=document.getElementById('num');
+        a.value=a.value+c;
+    }
+    function cal(){
+        var d=document.getElementById('num');
+        d.value+="="+eval(d.value);
+    }
+    function clear(){
+        var t=document.getElementById('num');
+        t.value="";
+        t.focus()
+    }
+    function backdel() {
+        var a=document.getElementById('num');
+        a.value= a.value.substring(1, a.value.length - 1);
+}
+
+
+</script>
+<body>
+<input class="show" type="text" id="num"><br>
+
+<input type="button" value="1" id="1" onclick="myclick(1)">
+<input type="button" value="2" id="2" onclick="myclick(2)">
+<input type="button" value="3" id="3" onclick="myclick(3)">
+<input type="button" value="+" id="add" onclick="myclick('+')">
+<input type="button" value="del" id="del" onclick="backdel()"><br>
+
+<input type="button" value="4" id="4" onclick="myclick(4)">
+<input type="button" value="5" id="5" onclick="myclick(5)">
+<input type="button" value="6" id="6" onclick="myclick(6)">
+<input type="button" value="-" id="jian" onclick="myclick('-')">
+<input type="button" value="cle" id="clea" onclick="clear()"><br>
+
+
+<input type="button" value="7" id="7" onclick="myclick(7)">
+<input type="button" value="8" id="8" onclick="myclick(8)">
+<input type="button" value="9" id="9" onclick="myclick(9)">
+<input type="button" value="0" id="0" onclick="myclick(0)">
+<input type="button" value="=" id="ca" onclick="cal()"><br>
+
+<input type="button" value="(" id="left" onclick="myclick('(')">
+<input type="button" value=")" id="right" onclick="myclick(')')">
+<input type="button" value="*" id="cheng" onclick="myclick('*')">
+<input type="button" value="/" id="chu" onclick="myclick('/')">
+
+
+</body>
+</html>
